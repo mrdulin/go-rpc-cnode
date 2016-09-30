@@ -1,15 +1,4 @@
-function rq(i) {
-  return new Promise((resolve, reject) =>
-    setTimeout(() => {
-      console.log('11');
-      if (i === 2) {
-        return reject('error happened');
-      }
-      console.log('------');
-      resolve(22);
-    }, 1000)
-  );
-}
+import { rq } from './asyncTask';
 
 const arr: any[] = [1, 2, 3];
 
@@ -38,5 +27,3 @@ Promise.all(promises.map(p => p.catch(err => 'fallback value'))).then(([a, b, c]
 // setTimeout(() => {
 //   console.log('result: ', result);
 // }, 3000);
-
-export {};

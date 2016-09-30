@@ -1,4 +1,4 @@
-import { asyncTask } from '../../lib/async-task';
+import { asyncTask } from '../../lib/asyncTask';
 
 function publish(message: any, cb: () => any) {
   return asyncTask(message)

@@ -1,5 +1,5 @@
 import faker from 'faker';
-import { asyncTask } from '../../lib/async-task';
+import { asyncTask } from '../../lib/asyncTask';
 
 async function main1() {
   const emails: string[] = Array(3).fill(faker.internet.email());
