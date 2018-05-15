@@ -6,8 +6,9 @@ const { exec } = require('child_process');
 //   console.log('test');
 // });
 
+const command = "git add . && git commit -m 'commit' && git push origin master";
 function gitpush(callback) {
-  exec('npm run git:push', (error, stdout, stderr) => {
+  exec(command, (error, stdout, stderr) => {
     if (error) {
       console.error(`exec error: ${error}`);
       return;
