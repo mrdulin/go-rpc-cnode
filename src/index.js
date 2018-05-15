@@ -6,9 +6,8 @@ const path = require('path');
 const rule = '3 * * * * *';
 const j = schedule.scheduleJob(rule, () => {
   console.log('start to commit');
-  modifyfile(() => {
-    gitpush();
-  });
+  renameSync();
+  gitpush();
 });
 
 const command = "git add . && git commit -m 'commit' && git push origin master";
@@ -23,18 +22,12 @@ function gitpush(callback) {
   });
 }
 
-// gitpush();
-
-function modifyfile(callback) {
-  const filepath = path.resolve(__dirname, './test.txt');
-  fs.open(filepath, 'w+', (err, fd) => {
-    if (err) return console.error(err);
-    const data = '\n';
-    fs.write(fd, data, (error, bytesWritten, buffer) => {
-      if (error) return console.error(error);
-      callback && callback();
-    });
-  });
+function renameSync() {
+  const pathA = path.resolve(__dirname, './test.txt');
+  const pathB = path.resolve(__dirname, './test-1.txt');
+  if (fs.existsSync(pathA)) {
+    fs.renameSync(pathA, pathB);
+  } else {
+    fs.renameSync(pathB, pathA);
+  }
 }
-
-// modifyfile();
