@@ -30,7 +30,7 @@ function modifyfile(callback) {
   fs.open(filepath, 'w+', (err, fd) => {
     if (err) return console.error(err);
     const data = '\n';
-    fs.write(fd, data, 0, (error, bytesWritten, buffer) => {
+    fs.write(fd, data, (error, bytesWritten, buffer) => {
       if (error) return console.error(error);
       callback && callback();
     });
