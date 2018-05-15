@@ -1,10 +1,15 @@
 const schedule = require('node-schedule');
 const { exec } = require('child_process');
+const fs = require('fs');
+const path = require('path');
 
-// const rule = '3 * * * * *';
-// const j = schedule.scheduleJob(rule, () => {
-//   console.log('test');
-// });
+const rule = '3 * * * * *';
+const j = schedule.scheduleJob(rule, () => {
+  console.log('start to commit');
+  modifyfile(() => {
+    gitpush();
+  });
+});
 
 const command = "git add . && git commit -m 'commit' && git push origin master";
 function gitpush(callback) {
@@ -18,4 +23,18 @@ function gitpush(callback) {
   });
 }
 
-gitpush();
+// gitpush();
+
+function modifyfile(callback) {
+  const filepath = path.resolve(__dirname, './test.txt');
+  fs.open(filepath, 'w+', (err, fd) => {
+    if (err) return console.error(err);
+    const data = '\n';
+    fs.write(fd, data, 0, (error, bytesWritten, buffer) => {
+      if (error) return console.error(error);
+      callback && callback();
+    });
+  });
+}
+
+modifyfile();
