@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node ./src",
-    "git:push": "git add . && git commit -m 'commit' && git push origin master"
+    "git:push": "git add . && git commit -m 'commit' && git push origin master && echo push successfully",
+    "echo": "echo Hello"
   },
   "repository": {
     "type": "git",

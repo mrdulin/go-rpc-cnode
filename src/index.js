@@ -14,7 +14,6 @@ function gitpush(callback) {
     }
     console.log(`stdout: ${stdout}`);
     console.log(`stderr: ${stderr}`);
-    process.exit(1);
   });
 }
 
