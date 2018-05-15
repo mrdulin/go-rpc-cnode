@@ -1,10 +1,10 @@
 const schedule = require('node-schedule');
 const { exec } = require('child_process');
 
-const rule = '3 * * * * *';
-const j = schedule.scheduleJob(rule, () => {
-  console.log('test');
-});
+// const rule = '3 * * * * *';
+// const j = schedule.scheduleJob(rule, () => {
+//   console.log('test');
+// });
 
 function gitpush(callback) {
   exec('npm run git:push', (error, stdout, stderr) => {
