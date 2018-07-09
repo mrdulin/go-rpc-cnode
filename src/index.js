@@ -5,7 +5,7 @@ const path = require('path');
 
 const rule = process.env.SCHEDULE_RULE || '*/1 * * * *';
 
-console.log('=== schedule commit start, commit every ===');
+console.log(`=== schedule commit start, commit schedule rule: ${rule}===`);
 
 function setRemoteUrl() {
   const sshRemoteUrl = 'git@github.com:mrdulin/schedule-commit.git';
