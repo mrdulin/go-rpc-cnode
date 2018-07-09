@@ -3,13 +3,26 @@ const { exec } = require('child_process');
 const fs = require('fs');
 const path = require('path');
 
+const rule = process.env.SCHEDULE_RULE || '*/1 * * * *';
+
 console.log('=== schedule commit start, commit every ===');
 
-const command = "git add . && git commit -m 'commit' && git push origin master";
+function setRemoteUrl() {
+  const sshRemoteUrl = 'git@github.com:mrdulin/schedule-commit.git';
+  const command = `git remote set-url origin ${sshRemoteUrl}`;
+  console.log(`set remote url to ${sshRemoteUrl}`);
+  exec(command, (err, stdout, stderr) => {
+    if (err) {
+      console.log('setRemoteUrl error: ', err);
+    }
+  });
+}
+
 function gitpush(callback) {
+  const command = "git add . && git commit -m 'commit' && git push origin master";
   exec(command, (error, stdout, stderr) => {
     if (error) {
-      console.error(`exec error: ${error}`);
+      console.log(`gitpush error: ${error}`);
       return;
     }
     console.log(`stdout: ${stdout}`);
@@ -27,13 +40,16 @@ function renameSync() {
   }
 }
 
-// const rule = '0 9 * * *';
-const rule = '* 1 * * * *';
-const j = schedule.scheduleJob(rule, () => {
-  console.log('start to commit');
-  console.log('next commit date: ', j.nextInvocation());
-  renameSync();
-  gitpush();
-});
+function main() {
+  setRemoteUrl();
 
-console.log(j.nextInvocation());
+  const j = schedule.scheduleJob(rule, () => {
+    console.log('start to commit, next commit date: ', j.nextInvocation());
+    renameSync();
+    gitpush();
+  });
+
+  console.log(j.nextInvocation());
+}
+
+main();
