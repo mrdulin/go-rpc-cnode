@@ -3,6 +3,8 @@ const { exec } = require('child_process');
 const fs = require('fs');
 const path = require('path');
 
+console.log('=== schedule commit start, commit every ===');
+
 const command = "git add . && git commit -m 'commit' && git push origin master";
 function gitpush(callback) {
   exec(command, (error, stdout, stderr) => {
@@ -25,9 +27,13 @@ function renameSync() {
   }
 }
 
-const rule = '0 9 * * *';
+// const rule = '0 9 * * *';
+const rule = '* 1 * * * *';
 const j = schedule.scheduleJob(rule, () => {
   console.log('start to commit');
+  console.log('next commit date: ', j.nextInvocation());
   renameSync();
   gitpush();
 });
+
+console.log(j.nextInvocation());
