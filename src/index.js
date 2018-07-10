@@ -4,11 +4,41 @@ const fs = require('fs');
 const path = require('path');
 
 const rule = process.env.SCHEDULE_RULE || '*/1 * * * *';
+const sshRemoteUrl = process.env.SSH_REMOTE_URL || '';
+const gitUserEmail = process.env.GIT_UESR_EMAIL || '';
+
+if (!sshRemoteUrl || !gitUserEmail) {
+  console.log('sshRemoteUrl and gitUserEmail can not be empty.');
+  process.exit(1);
+}
 
 console.log(`=== schedule commit start, commit schedule rule: ${rule}===`);
 
+function gitInit() {
+  const command = 'git init';
+  console.log('initialize git repo');
+  exec(command, (err, stdout, stderr) => {
+    if (err) {
+      console.log('gitInit error: ', err);
+    }
+    console.log(`stdout: ${stdout}`);
+    console.log(`stderr: ${stderr}`);
+  });
+}
+
+function setGitConfig() {
+  const command = `git config --local user.email ${gitUserEmail}`;
+  console.log('initialize git repo');
+  exec(command, (err, stdout, stderr) => {
+    if (err) {
+      console.log('gitInit error: ', err);
+    }
+    console.log(`stdout: ${stdout}`);
+    console.log(`stderr: ${stderr}`);
+  });
+}
+
 function setRemoteUrl() {
-  const sshRemoteUrl = 'git@github.com:mrdulin/schedule-commit.git';
   const command = `git remote set-url origin ${sshRemoteUrl}`;
   console.log(`set remote url to ${sshRemoteUrl}`);
   exec(command, (err, stdout, stderr) => {
@@ -41,6 +71,8 @@ function renameSync() {
 }
 
 function main() {
+  gitInit();
+  setGitConfig();
   setRemoteUrl();
 
   const j = schedule.scheduleJob(rule, () => {
