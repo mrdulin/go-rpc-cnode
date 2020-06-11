@@ -1,10 +1,10 @@
 {
   "name": "js-promise",
   "version": "1.0.0",
-  "description": "",
+  "description": "Learning JavaScript Promise API",
   "main": "",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -19,10 +19,13 @@
   "homepage": "https://github.com/mrdulin/js-promise#readme",
   "dependencies": {},
   "devDependencies": {
-    "@types/faker": "^4.1.5",
+    "@types/faker": "^4.1.12",
+    "@types/jest": "^26.0.7",
     "faker": "^4.1.0",
-    "ts-node": "^8.0.2",
+    "jest": "^26.1.0",
+    "ts-jest": "^26.1.4",
+    "ts-node": "^8.10.2",
     "tslint": "^5.12.1",
-    "typescript": "^3.3.3"
+    "typescript": "^3.9.7"
   }
 }
