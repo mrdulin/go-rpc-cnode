@@ -1,4 +1,4 @@
-package user
+package models
 
 type User struct {
   Loginname *string `json:"loginname"`
@@ -16,6 +16,5 @@ type UserDetail struct {
   CreateAt       *string        `json:"create_at"`
   Score          *int           `json:"score"`
   //RecentReplies  []*ReplyRecent `json:"recent_replies"`
-  //RecentTopics   []*TopicRecent `json:"recent_topics"`
+  RecentTopics   []*TopicRecent `json:"recent_topics"`
 }
-
