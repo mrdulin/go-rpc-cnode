@@ -1,19 +1,19 @@
-package main_test
+package main
 
 import (
   "fmt"
   "github.com/mrdulin/go-rpc-cnode/modules/user"
   "log"
-  "net/rpc"
-  "testing"
+  "net/rpc/jsonrpc"
+  "reflect"
 )
 
 const (
   serverAddress string = "localhost:3000"
 )
 
-func TestUser_GetUserByLoginname(t *testing.T) {
-  client, err := rpc.DialHTTP("tcp", serverAddress)
+func main() {
+  client, err := jsonrpc.Dial("tcp", serverAddress)
   if err != nil {
     log.Fatal("dialing:", err)
   }
@@ -23,5 +23,5 @@ func TestUser_GetUserByLoginname(t *testing.T) {
   if err != nil {
     log.Fatal("arith error:", err)
   }
-  fmt.Printf("res: %+v", res)
+  fmt.Printf("res: %+v, type: %+v", res, reflect.TypeOf(res).Kind())
 } 
