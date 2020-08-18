@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"net"
 	"net/rpc"
@@ -58,9 +59,11 @@ func main() {
 
 	for {
 		conn, err := l.Accept()
+		fmt.Println("accept connection, listener addr: %+v", l.Addr())
 		if err != nil {
 			log.Fatal("accept error:", err)
 		}
+
 		go rpcserver.ServeCodec(jsonrpc.NewServerCodec(conn))
 	}
 }

@@ -49,7 +49,7 @@ func main() {
 	if err != nil {
 		log.Fatal("dialing:", err)
 	}
-	//testGetUserByLoginname(client)
+	testGetUserByLoginname(client)
 	//testGetTopicsByPage(client)
-	testMarkAllMessages(client)
+	//testMarkAllMessages(client)
 }
