@@ -34,11 +34,22 @@ func testGetTopicsByPage(rpcclient *rpc.Client) {
 	fmt.Printf("testGetTopicsByPage: %+v\n", res)
 }
 
+func testMarkAllMessages(rpcclient *rpc.Client) {
+	args := services.MarkAllMessagesArgs{Accesstoken: "be60f8d0-149c-4905-be4a-7f07d4788d88"}
+	var res []models.MarkedMessage
+	err := rpcclient.Call("MessageService.MarkAllMessages", args, &res)
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Printf("testMarkAllMessages: %+v\n", res)
+}
+
 func main() {
 	client, err := jsonrpc.Dial("tcp", serverAddress)
 	if err != nil {
 		log.Fatal("dialing:", err)
 	}
-	testGetUserByLoginname(client)
-	testGetTopicsByPage(client)
+	//testGetUserByLoginname(client)
+	//testGetTopicsByPage(client)
+	testMarkAllMessages(client)
 }

@@ -34,10 +34,12 @@ func main() {
 	httpClient := api.NewClient()
 	userService := services.NewUserService(httpClient, baseurl)
 	topicService := services.NewTopicService(httpClient, baseurl)
+	messageService := services.NewMessageService(httpClient, baseurl)
 
 	rpcserver := rpc.NewServer()
 	rpcserver.RegisterName("UserService", userService)
 	rpcserver.RegisterName("TopicService", topicService)
+	rpcserver.RegisterName("MessageService", messageService)
 
 	// https://stackoverflow.com/questions/36610140/call-golang-call-jsonrpc-with-curl
 	//http.Serve(l, http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
